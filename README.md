@@ -1,4 +1,4 @@
-# Project Title
+# Show2Lead
 
 This is a project I coded in Go (golang.com) for Performance Asset Management in Milwaukee. Imports Leads from Showmojo and pushes them to Zapier where it recreates and assigns the lead in Lead Simple. 
 
