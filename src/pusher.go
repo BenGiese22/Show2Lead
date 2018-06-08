@@ -123,11 +123,11 @@ func Action() (error) {
       if(v.After(start)) {
         if (val.ShowingWasScheduled == "t") {
           log.Println("Lead Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
-          //send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone,val.TeamMember)
+          send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone,val.TeamMember)
         }
       }
     }
-	return nil
+    return nil
 }
 
 //Takes in the parameter of val.CreatedAt
@@ -174,10 +174,10 @@ func createdAtToTime(created string) (time.Time) {
   return t
 }
 
-//Returns the time of method call and 15 minutes before that.
+//Returns the time of method call and 10 minutes before that.
 func getTimes() (time.Time, time.Time) {
   time_now := time.Now().UTC()
-  subtracted_time := time_now.Add(-15*time.Minute)
+  subtracted_time := time_now.Add(-10*time.Minute)
   return subtracted_time,time_now
 }
 
