@@ -101,7 +101,7 @@ func saveToken(path string, token *oauth2.Token) {
 
 func main() {
 
-  lambda.start(Action)
+  lambda.Start(Action)
 
 }
 
