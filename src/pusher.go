@@ -212,11 +212,14 @@ func timeForShowMojo(v time.Time) (string) {
 //Zapier Email: i5qc1rg9@robot.zapier.com
 func send(address string, name string, email string, phone string, agent string) {
   agent_name := getLeadSimpleName(agent)
+  notifyUid := getNotifyUid(agent)
   from := "Show2Lead@gmail.com"
   pass := "Miller2179"
   to := "i5qc1rg9@robot.zapier.com"
   body := "Address: " + address + "\r\n" + "Name: " + name + "\r\n" +
   "Phone: " + phone + "\r\n" + "Email: " + email + "\r\n" + "Assign To: " + agent_name + "\r\n"
+  
+  body = body + "Notify: " + notifyUid + "\r\n"
 
   msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
@@ -269,6 +272,19 @@ func getLeadSimpleName(agent string) string {
       return "0"
     }
   }
+
+func getNotifyUid(agent string) string {
+  switch agent {
+  case "Matt M":
+    return "f9b7bd28-ff13-43db-b0a8-5b8fc4e671cf"
+  case "Gino P":
+    return "632cc4e0-3427-420e-9616-764b03cb8233"
+  case "Shawn J":
+    return "db627b21-0419-400d-8210-8dc57ec355e3"
+  default:
+    return "0"
+  }
+}
 
 //Calls Post to the prospect data and gets returned raw data
 func readProspects(startDate string, endDate string) []byte {//todo handle errs
