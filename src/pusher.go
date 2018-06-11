@@ -106,13 +106,16 @@ func main() {
 }
 
 func Action() (error) {
+  log.Println("Process Startup")
   start, end := getTimes()
 
   str_start := timeForShowMojo(start)
   str_end := timeForShowMojo(end)
 
-  log.Println(start.String(),end.String())
 
+  log.Println("Time Frame: " + start.String(),end.String())
+
+  log.Println("Getting Prospect Info. & Sending Emails")
   prospects := GetProspectDetails(str_start,str_end)
     for _, val := range prospects.Response.Data {
 
@@ -122,12 +125,13 @@ func Action() (error) {
 
       if(v.After(start)) {
         if (val.ShowingWasScheduled == "t") {
-          log.Println("Lead Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
+          log.Println("Lead: " + val.Name  " Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
           send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone,val.TeamMember)
         }
       }
     }
     return nil
+  log.Println("Process Complete, Shutting Down")
 }
 
 //Takes in the parameter of val.CreatedAt
@@ -231,6 +235,18 @@ func send(address string, name string, email string, phone string, agent string)
 	log.Print("sent, visit "+ to)
 }
 
+//Function for testing the sending capability and duplication testing.
+func tester_send() {
+  address_0 := "1029 North Jackon St"
+  address_1 := "146 E Juneau Ave"
+  name := "John Smith"
+  email := "john.smith@gmail.com"
+  phone := "999.999.9999"
+  agent := "John S"
+  send(address_0,name,email,phone,agent)
+  send(address_1,name,email,phone,agent)
+}
+
 //Returns ProspectDetailResponse Type (See Struct Above) with Prospect info.
 func GetProspectDetails(startTime string, endTime string) (ProspectDetailResponse) {
 	body2 := readProspects(startTime, endTime)
@@ -245,11 +261,11 @@ func GetProspectDetails(startTime string, endTime string) (ProspectDetailRespons
 func getLeadSimpleName(agent string) string {
   //Matt M -> Matt
   split := strings.Split(agent," " )
-  log.Print(split[1])
+  //log.Print(split[0])  //Split: [Matt,M] want split[0]
   if len(split) < 2 {
     return agent
   } else {
-    switch split[1] {
+    switch split[0] {
     case "Matt":
       return "5610"
     case "Gino":
