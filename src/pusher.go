@@ -101,7 +101,7 @@ func saveToken(path string, token *oauth2.Token) {
 
 func main() {
 
-  lambda.Start(Action)
+  lambda.start(Action)
 
 }
 
@@ -111,16 +111,16 @@ func Action() (error) {
 
   str_start := timeForShowMojo(start)
   str_end := timeForShowMojo(end)
-  
+
   log.Println("Time Frame: " + start.String(),end.String())
 
   log.Println("Getting Prospect Info. & Sending Emails")
+  //tester_send()
   prospects := GetProspectDetails(str_start,str_end)
     for _, val := range prospects.Response.Data {
 
       //Created: 7 Jun 2018, 6:58AM  CDT
       v := createdAtToTime(val.CreatedAt)
-
 
       if(v.After(start)) {
         if (val.ShowingWasScheduled == "t") {
@@ -238,13 +238,11 @@ func send(address string, name string, email string, phone string, agent string)
 //Function for testing the sending capability and duplication testing.
 func tester_send() {
   address_0 := "1029 North Jackon St"
-  address_1 := "146 E Juneau Ave"
   name := "John Smith"
   email := "john.smith@gmail.com"
   phone := "999.999.9999"
-  agent := "John S"
+  agent := "Matt M"
   send(address_0,name,email,phone,agent)
-  send(address_1,name,email,phone,agent)
 }
 
 //Returns ProspectDetailResponse Type (See Struct Above) with Prospect info.
@@ -260,23 +258,17 @@ func GetProspectDetails(startTime string, endTime string) (ProspectDetailRespons
 //it to LeadSimple format (Gino / Matt)
 func getLeadSimpleName(agent string) string {
   //Matt M -> Matt
-  split := strings.Split(agent," " )
-  //log.Print(split[0])  //Split: [Matt,M] want split[0]
-  if len(split) < 2 {
-    return agent
-  } else {
-    switch split[0] {
-    case "Matt":
+    switch agent {
+    case "Matt M":
       return "5610"
-    case "Gino":
+    case "Gino P":
       return "5611"
-    case "Shawn":
+    case "Shawn J":
       return "5647"
     default:
       return "0"
     }
   }
-}
 
 //Calls Post to the prospect data and gets returned raw data
 func readProspects(startDate string, endDate string) []byte {//todo handle errs
