@@ -111,8 +111,7 @@ func Action() (error) {
 
   str_start := timeForShowMojo(start)
   str_end := timeForShowMojo(end)
-
-
+  
   log.Println("Time Frame: " + start.String(),end.String())
 
   log.Println("Getting Prospect Info. & Sending Emails")
@@ -125,13 +124,14 @@ func Action() (error) {
 
       if(v.After(start)) {
         if (val.ShowingWasScheduled == "t") {
-          log.Println("Lead: " + val.Name  " Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
+          log.Println("Lead: " + val.Name + " Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
           send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone,val.TeamMember)
         }
       }
     }
-    return nil
+
   log.Println("Process Complete, Shutting Down")
+  return nil
 }
 
 //Takes in the parameter of val.CreatedAt
