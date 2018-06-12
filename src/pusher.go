@@ -125,7 +125,7 @@ func Action() (error) {
       if(v.After(start)) {
         if (val.ShowingWasScheduled == "t") {
           log.Println("Lead: " + val.Name + " Email: " + val.Email + "  Agent: " + val.TeamMember + "  Created: " + val.CreatedAt)
-          send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone,val.TeamMember)
+          send(val.Address + " " + val.Unit, val.Name, val.Email, val.Phone)
         }
       }
     }
@@ -210,16 +210,12 @@ func timeForShowMojo(v time.Time) (string) {
 //Sends email with specified Lead Info. to the LeadSimple Email Importer
 //LS Email: new-leadd564b4aaf8@newlead.leadsimple.com
 //Zapier Email: i5qc1rg9@robot.zapier.com
-func send(address string, name string, email string, phone string, agent string) {
-  agent_name := getLeadSimpleName(agent)
-  notifyUid := getNotifyUid(agent)
+func send(address string, name string, email string, phone string) {
   from := "Show2Lead@gmail.com"
   pass := "Miller2179"
-  to := "i5qc1rg9@robot.zapier.com"
+  to := "new-leadd564b4aaf8@newlead.leadsimple.com"
   body := "Address: " + address + "\r\n" + "Name: " + name + "\r\n" +
-  "Phone: " + phone + "\r\n" + "Email: " + email + "\r\n" + "Assign To: " + agent_name + "\r\n"
-  
-  body = body + "Notify: " + notifyUid + "\r\n"
+  "Phone: " + phone + "\r\n" + "Email: " + email + "\r\n"
 
   msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
@@ -244,8 +240,7 @@ func tester_send() {
   name := "John Smith"
   email := "john.smith@gmail.com"
   phone := "999.999.9999"
-  agent := "Matt M"
-  send(address_0,name,email,phone,agent)
+  send(address_0,name,email,phone)
 }
 
 //Returns ProspectDetailResponse Type (See Struct Above) with Prospect info.
