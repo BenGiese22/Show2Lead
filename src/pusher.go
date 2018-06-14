@@ -183,8 +183,8 @@ func getTimes() (time.Time, time.Time) {
   time_now := time.Now().UTC()
   _,month,_ := time.Now().Date()
   minutes := time_now.Minute()
-  minutes = minutes + 10
-  remainder := minutes % 10
+  extra_min := minutes + 10
+  remainder := extra_min % 10
   flat_time := time.Date(time_now.Year(),month,time_now.Day()-remainder,time_now.Hour(),minutes,0,0,time.UTC)
 
   subtracted_time := flat_time.Add(-10*time.Minute)
