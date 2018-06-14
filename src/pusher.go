@@ -181,8 +181,14 @@ func createdAtToTime(created string) (time.Time) {
 //Returns the time of method call and 10 minutes before that.
 func getTimes() (time.Time, time.Time) {
   time_now := time.Now().UTC()
-  subtracted_time := time_now.Add(-10*time.Minute)
-  return subtracted_time,time_now
+  _,month,_ := time.Now().Date()
+  minutes := time_now.Minute()
+  minutes = minutes + 10
+  remainder := minutes % 10
+  flat_time := time.Date(time_now.Year(),month,time_now.Day()-remainder,time_now.Hour(),minutes,0,0,time.UTC)
+
+  subtracted_time := flat_time.Add(-10*time.Minute)
+  return subtracted_time,flat_time
 }
 
 //Converts time to string value time for showmojo
