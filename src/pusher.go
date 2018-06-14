@@ -185,7 +185,7 @@ func getTimes() (time.Time, time.Time) {
   minutes := time_now.Minute()
   extra_min := minutes + 10
   remainder := extra_min % 10
-  flat_time := time.Date(time_now.Year(),month,time_now.Day()-remainder,time_now.Hour(),minutes,0,0,time.UTC)
+  flat_time := time.Date(time_now.Year(),month,time_now.Day(),time_now.Hour(),minutes-remainder,0,0,time.UTC)
 
   subtracted_time := flat_time.Add(-10*time.Minute)
   return subtracted_time,flat_time
