@@ -180,7 +180,7 @@ func createdAtToTime(created string) (time.Time) {
 
 //Returns the time of method call and 10 minutes before that.
 func getTimes() (time.Time, time.Time) {
-  time_now := time.Now().UTC()
+  time_now := time.Now().In(time.FixedZone("CDT", -18000))
   _,month,_ := time.Now().Date()
   minutes := time_now.Minute()
   extra_min := minutes + 10
