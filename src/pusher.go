@@ -190,6 +190,7 @@ func getTimes() (time.Time, time.Time) {
   flat_time := time.Date(time_now.Year(),month,time_now.Day(),time_now.Hour(),minutes-remainder,0,0,location)
 
   subtracted_time := flat_time.Add(-10*time.Minute)
+  subtracted_time = subtracted_time.Add(-30*time.Second)
   return subtracted_time,flat_time
 }
 
